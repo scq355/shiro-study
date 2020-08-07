@@ -1,0 +1,18 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: shiro
+  datasource:
+    url: jdbc:mysql://localhost:3306/shiro?characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: scq355
+  redis:
+    port: 6379
+    host: localhost
+    database: 0
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

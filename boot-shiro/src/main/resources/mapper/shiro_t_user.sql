@@ -1,0 +1,2 @@
+INSERT INTO shiro.t_user (id, username, password, salt) VALUES (1, 'scq', 'f74af1231a116eba382cc6820ae0be75', '9M_xQd&n');
+INSERT INTO shiro.t_user (id, username, password, salt) VALUES (2, 'nwpu', 'f4609055e595fdfc05359e91ccec1e3f', 'n)qXv#MR');

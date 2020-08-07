@@ -1,0 +1,50 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wowjoy.boot.shiro.dao.UserMapper">
+    <resultMap id="user"  type="com.wowjoy.boot.shiro.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+    </resultMap>
+
+    <resultMap id="perms"  type="com.wowjoy.boot.shiro.entity.Perms">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+    </resultMap>
+    
+    <resultMap id="userMap" type="com.wowjoy.boot.shiro.entity.User">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <collection property="roles" ofType="com.wowjoy.boot.shiro.entity.Role">
+            <id property="id" column="id"/>
+            <result column="rname" property="name"/>
+        </collection>
+    </resultMap>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user values (#{id}, #{username}, #{password}, #{salt})
+    </insert>
+
+    <select id="findByUserName" parameterType="String" resultMap="user">
+        select id, username, password, salt
+        from t_user
+        where username = #{username}
+    </select>
+    <select id="findRolesByUsername" resultMap="userMap">
+        select  u.id uid, u.username, r.id, r.name rname
+        from t_user u
+            left join t_user_role ur on u.id = ur.userid
+            left join t_role r on ur.roleid = r.id
+        where u.username = #{username}
+    </select>
+
+    <select id="findPermsByRoleId" resultMap="perms">
+        select p.id, p.name, p.url, r.name
+        from t_role r
+                 left join t_role_perms rp on rp.roleid = r.id
+                 left join t_perms p on p.id = rp.permsid
+        where r.id = '';
+
+    </select>
+
+</mapper>
